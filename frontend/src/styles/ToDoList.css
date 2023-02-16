@@ -32,6 +32,7 @@
 
 .add-button:hover {
     cursor: pointer;
+    background-color: rgba(82, 219, 212);
 }
 
 .create-task-form {
@@ -196,9 +197,9 @@
     font-weight: bolder;
 }
 
-span {
+/* span {
     margin-left: 1rem;
-}
+} */
 
 .editing-buttons-container {
     display: flex;
@@ -240,6 +241,7 @@ span {
         margin-left: 2rem;
         width: 90%;
         font-size: 0.8rem;
+        margin-top: 5rem;
     }
 
     .create-task-form {

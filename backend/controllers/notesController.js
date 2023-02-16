@@ -85,7 +85,7 @@ export const createHealthNotes = async (req, res, next) => {
     const healthNote = new NotesCollection({
       health: [{ title: [req.body.title], note: [req.body.note] }],
     });
-     await healthNote.save();
+    await healthNote.save();
 
     const updatedUser = await UsersCollection.findByIdAndUpdate(
       req.user._id,
@@ -95,8 +95,8 @@ export const createHealthNotes = async (req, res, next) => {
       .populate("notes")
       .populate("kanban")
       .populate("tasks");
- 
-      res.json({ success: true, data: updatedUser });
+
+    res.json({ success: true, data: updatedUser });
   } catch (err) {
     next(err);
   }
@@ -107,7 +107,7 @@ export const createPersonalNotes = async (req, res, next) => {
     const personalNote = new NotesCollection({
       personal: [{ title: [req.body.title], note: [req.body.note] }],
     });
-       await personalNote.save();
+    await personalNote.save();
 
     const updatedUser = await UsersCollection.findByIdAndUpdate(
       req.user._id,
@@ -237,9 +237,9 @@ export const updatePersonalNote = async (req, res, next) => {
       { new: true }
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
-    .populate("notes")
-    .populate("kanban")
-    .populate("tasks");
+      .populate("notes")
+      .populate("kanban")
+      .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
     next(err);
@@ -255,9 +255,9 @@ export const updateBusinessNote = async (req, res, next) => {
       { new: true }
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
-    .populate("notes")
-    .populate("kanban")
-    .populate("tasks");
+      .populate("notes")
+      .populate("kanban")
+      .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
     next(err);
@@ -273,9 +273,9 @@ export const updateInspirationsNote = async (req, res, next) => {
       { new: true }
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
-    .populate("notes")
-    .populate("kanban")
-    .populate("tasks");
+      .populate("notes")
+      .populate("kanban")
+      .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
     next(err);

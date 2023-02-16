@@ -40,12 +40,27 @@ html {
   padding-bottom: 2rem;
 }
 
+/* .container-fluid{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+} */
+
+.navbar-toggler-icon {
+  margin: 0 auto;
+}
+
 .homeGrid {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   align-self: center;
+}
+
+.navbar-nav{
+  margin-bottom: 0;
 }
 
 .homeGrid2 {
@@ -111,18 +126,21 @@ html {
   background-color: #52dbd4;
   font-size: 2rem;
   padding: 1rem;
+  border-radius: 7.5px;
 }
 
 .teal2 {
   background-color: #42aba5;
   font-size: 2.5rem;
   padding: 1rem;
+  border-radius: 7.5px;
 }
 
 .teal3 {
   background-color: #32827e;
   padding: 1rem;
   font-size: 4rem;
+  border-radius: 7.5px;
 }
 
 .button {

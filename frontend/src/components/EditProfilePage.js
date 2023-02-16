@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import MyContext from "../context/MyContext";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import "../styles/EditProfilePage.css"
+import "../styles/EditProfilePage.css";
 
 export default function EditProfileUser() {
   const { user, setUser } = useContext(MyContext);
@@ -19,10 +19,9 @@ export default function EditProfileUser() {
       body: data,
     })
       .then((res) => res.json())
-      .then((result) => {
-        console.log(result);
+      .then((result) => {        
         if (result.success) {
-          toast.success("user profile updated");
+          toast.success("Profile updated");
           setUser(result.data);
 
           setTimeout(() => {
@@ -39,34 +38,39 @@ export default function EditProfileUser() {
       <h1>Profile Editor</h1>
 
       <form onSubmit={sendUpdateRequest} className="profile-edit-form">
-
-    <div>
-        <label>First Name</label> <br></br>
-        <input
-          type="text"
-          name="firstName"
-          defaultValue={user.firstName}
-        />{" "}
-</div>
-
-        <br></br>
-
         <div>
-        <label>Last Name</label> <br></br>
-        <input type="text" name="lastName" defaultValue={user.lastName} />{" "}
+          <label>First Name</label> <br></br>
+          <input
+            type="text"
+            name="firstName"
+            defaultValue={user.firstName}
+          />{" "}
         </div>
 
         <br></br>
 
         <div>
-        <label>Password</label> <br></br>
-        <input type="password" name="password" placeholder="********" />{" "}
+          <label>Last Name</label> <br></br>
+          <input
+            type="text"
+            name="lastName"
+            defaultValue={user.lastName}
+          />{" "}
+        </div>
+
+        <br></br>
+
+        <div>
+          <label>Password</label> <br></br>
+          <input type="password" name="password" placeholder="********" />{" "}
         </div>
         <br></br>
         {/*     <label>Profile Image : <input type="file" name="image" /> </label> <br></br>
                 <img src={user.profileImage} alt="profile" width="100"></img><br></br> */}
-                <span> <button className="profile-edit-logout-btns">Save</button></span>
-       
+        <span>
+          {" "}
+          <button className="profile-edit-logout-btns">Save</button>
+        </span>
       </form>
     </div>
   );

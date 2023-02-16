@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, Outlet } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+
 import MyContext from "../context/MyContext";
 
 import "../styles/UsersLandingPage.css";
@@ -12,23 +12,23 @@ import brandLogo from "../assets/brandLogo.png";
 import brandLogo2 from "../assets/brandLogo2.png";
 
 // Font Awesome Icons
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+/* import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons"; */
 
-const burgerIcon = <FontAwesomeIcon icon={faBars} />;
+/* const burgerIcon = <FontAwesomeIcon icon={faBars} />; */
 
 export default function UsersLandingPage() {
   // calender
-  const [value, onChange] = useState(new Date());
+  /* const [value, onChange] = useState(new Date()); */
 
-  const { user, setUser } = useContext(MyContext);
-  const navigate = useNavigate();
+  const { user } = useContext(MyContext);
+  /* const navigate = useNavigate(); */
 
-  const logout = () => {
+  /*  const logout = () => {
     localStorage.removeItem("token");
     setUser(null);
     navigate("/login");
-  };
+  }; */
 
   const isActive = ({ isActive }) => {
     return {
@@ -43,9 +43,9 @@ export default function UsersLandingPage() {
         <>
           <div className="header">
             <div className="burger-menu">
-              <nav class="navbar navbar-expand-lg">
-                <div class="container-fluid">
-                  <a class="navbar-brand" href="#A">
+              <nav className="navbar navbar-expand-lg">
+                <div className="container-fluid">
+                  <div className="navbar-brand" href="#A">
                     <NavLink className="NavLink" to="/home/kanban" href="#1">
                       <img
                         classname="brand-logo"
@@ -54,21 +54,21 @@ export default function UsersLandingPage() {
                         style={{ height: "100px" }}
                       ></img>
                     </NavLink>
-                  </a>
+                  </div>
                   <button
-                    class="navbar-toggler"
+                    className="navbar-toggler"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#main_nav"
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                   >
-                    <span class="navbar-toggler-icon"></span>
+                    <span className="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse" id="main_nav">
-                    <ul class="navbar-nav">
+                  <div className="collapse navbar-collapse" id="main_nav">
+                    <ul className="navbar-nav">
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <button className="dropdown-item">
                           <NavLink
                             className="burger-navlink"
                             style={isActive}
@@ -77,10 +77,10 @@ export default function UsersLandingPage() {
                             {" "}
                             Profile{" "}
                           </NavLink>
-                        </a>
+                        </button>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <button className="dropdown-item">
                           <NavLink
                             className="burger-navlink"
                             style={isActive}
@@ -89,10 +89,10 @@ export default function UsersLandingPage() {
                             {" "}
                             Kanban{" "}
                           </NavLink>
-                        </a>
+                        </button>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <button className="dropdown-item">
                           <NavLink
                             style={isActive}
                             className="burger-navlink"
@@ -101,10 +101,10 @@ export default function UsersLandingPage() {
                             {" "}
                             To-Do List{" "}
                           </NavLink>
-                        </a>
+                        </button>
                       </li>
                       <li>
-                        <a class="dropdown-item" href="#">
+                        <button className="dropdown-item">
                           <NavLink
                             style={isActive}
                             className="burger-navlink"
@@ -113,7 +113,7 @@ export default function UsersLandingPage() {
                             {" "}
                             Notes{" "}
                           </NavLink>
-                        </a>
+                        </button>
                       </li>
                     </ul>
                   </div>
@@ -121,17 +121,17 @@ export default function UsersLandingPage() {
               </nav>
             </div>
             <div id="header-logo">
-            <NavLink to="/home" >
-              {" "}
-              <img
-                classname="brand-logo"
-                alt=""
-                src={brandLogo2}
-                style={{ height: "200px"}}
-              ></img>{" "}
-            </NavLink>{" "}
+              <NavLink to="/home">
+                {" "}
+                <img
+                  classname="brand-logo"
+                  alt=""
+                  src={brandLogo2}
+                  style={{ height: "200px" }}
+                ></img>{" "}
+              </NavLink>{" "}
             </div>
-            
+
             {/* <button onClick={logout}>Logout </button> */}
           </div>
 

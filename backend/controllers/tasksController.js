@@ -55,7 +55,7 @@ export const createNewTask = async (req,res,next) => {
       updatedUser.kanban.push(kanban._id)
       await updatedUser.save();
 
-      res.json({success: true, data: updatedUser}).populate("kanban").populate("tasks").populate("notes");
+      res.json({success: true, data: updatedUser})
 
     }
     catch(err){
@@ -85,7 +85,7 @@ export const completeTask = async (req,res,next) => {
 
         task.completed = !task.completed;
         task.save();
-        res.json({success: true, data:task}).populate("kanban").populate("tasks").populate("notes");
+        res.json({success: true, data:task});
     }
     catch (err) {
         next(err)
@@ -104,7 +104,7 @@ export const updateTask = async (req,res,next) => {
             foundKanban.task = updatedTask.task
             await foundKanban.save()
         }
-        res.json({success: true, task: updatedTask}).populate("kanban").populate("tasks").populate("notes");
+        res.json({success: true, task: updatedTask});
     }
     catch(err){
         next(err)
@@ -123,11 +123,11 @@ export const deleteTask = async (req,res,next) => {
 
             const deletedTask = await TasksCollection.deleteOne({_id: task._id})
 
-            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanban").populate("tasks").populate("notes") 
+            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanban").populate("tasks").populate("notes")
 
             const foundKanban = await KanbanCollection.findOneAndDelete({toDoTaskId: id})
 
-            res.json({success:true, data:updatedUser}).populate("kanban").populate("tasks").populate("notes");
+            res.json({success:true, data:updatedUser})
         }else{
             throw new Error("task id doesn't exist")
         }
@@ -150,7 +150,7 @@ export const deleteCompletedTask = async (req,res,next) => {
 
             const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanban").populate("tasks").populate("notes")
 
-            res.json({success:true, data:updatedUser}).populate("kanban").populate("tasks").populate("notes");
+            res.json({success:true, data:updatedUser})
         }else{
             throw new Error("task id doesn't exist")
         }

@@ -41,11 +41,7 @@ export const getAllDoingTasks = async (req, res, next) => {
         filterAllDoing.push(task);
       }
     }
-    res
-      .json({ success: true, data: filterAllDoing })
-      .populate("kanban")
-      .populate("tasks")
-      .populate("notes");
+    res.json({ success: true, data: filterAllDoing });
   } catch (err) {
     next(err);
   }
@@ -61,11 +57,7 @@ export const getAllDoneTasks = async (req, res, next) => {
         filterAllDone.push(task);
       }
     }
-    res
-      .json({ success: true, data: filterAllDone })
-      .populate("kanban")
-      .populate("tasks")
-      .populate("notes");
+    res.json({ success: true, data: filterAllDone });
   } catch (err) {
     next(err);
   }
@@ -87,23 +79,17 @@ export const updateTask = async (req, res, next) => {
     const id = req.params.id;
     const updatedTask = await KanbanCollection.findByIdAndUpdate(id, req.body, {
       new: true,
-    }).populate("kanban")
-    .populate("tasks")
-    .populate("notes");
+    });
 
-  /*   console.log(updatedTask); */
+    console.log(updatedTask);
     const foundTask = await TasksCollection.findById(updatedTask.toDoTaskId);
-/*     console.log(foundTask); */
+    console.log(foundTask);
     if (foundTask) {
       foundTask.task = updatedTask.task;
       await foundTask.save();
-    };
+    }
 
-    res
-      .json({ success: true, data: updatedTask })
-      .populate("kanban")
-      .populate("tasks")
-      .populate("notes");
+    res.json({ success: true, data: updatedTask });
   } catch (err) {
     next(err);
   }

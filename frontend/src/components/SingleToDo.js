@@ -31,7 +31,7 @@ console.log(editedDate) */
         })
             .then(res => res.json())
             .then(result => {
-                console.log(result)
+                
 
                 setUser((prevTask) => {
                     const updated = prevTask.tasks.map((task) => {

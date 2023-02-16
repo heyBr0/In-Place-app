@@ -33,7 +33,7 @@
 }
 
 .kanban-form button:hover {
-  background-color: rgb(22, 219, 154);
+  background-color: rgba(82, 219, 212, 0.5);
   cursor: pointer;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .board-task:hover {
-  background-color: rgb(22, 219, 154);
+  background-color: rgba(82, 219, 212);
   /* background: linear-gradient(90deg, rgba(131, 58, 180, 0.4) 0%, rgba(253, 29, 29, 0.4) 50%, rgba(252, 176, 69, 0.4) 100%); */
   cursor: grab;
   /* color: white; */
@@ -161,7 +161,7 @@
 }
 
 .kanban-modal-edit button:hover {
-  background-color: rgb(22, 219, 154);
+  background-color: rgba(82, 219, 212);
   color: white;
   cursor: pointer;
 }
@@ -191,7 +191,7 @@
 }
 
 .add-task-btn:hover {
-  background-color: rgb(22, 219, 154);
+  background-color: rgba(82, 219, 212);
   color: white;
   cursor: pointer;
 }
@@ -247,9 +247,18 @@
 }
 
 .kanban-modal-create button:hover {
-  background-color: rgb(22, 219, 154);
+  background-color:rgba(82, 219, 212, 0.5);
   color: white;
   cursor: pointer;
+}
+
+.drag-drop-title{
+  margin: 1rem 0;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: rgba(237, 160, 211, 0.7);
+  width: fit-content;
+  border-radius: 5px;
 }
 
 @media only screen and (max-width: 1200px) {
@@ -268,7 +277,7 @@
   .kanban-container {
     margin: 0;
     width: 95%;
-    margin-top: 3rem;
+    margin-top: 6rem;
   }
 
   .board-column {
