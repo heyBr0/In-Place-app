@@ -73,7 +73,7 @@ export const deleteUser = async (req, res, next) => {
       const deleteStatus = await UsersCollection.deleteOne({
         _id: existingUser._id,
       });
-      res.json({ success: true, status: deleteStatus });
+      res.json({ success: true, status: deleteStatus }).populate("kanban").populate("tasks").populate("notes");
     } else {
       throw new Error("User id does not exist");
     }
@@ -127,7 +127,7 @@ export const checkUserToken = async (req, res, next) => {
   //  const user = await UsersCollection.findById(payload._id).populate("kanban");
 
 
-    res.json({ success: true, data: user });
+    res.json({ success: true, data: user }).populate("kanban").populate("tasks").populate("notes");
   } catch (err) {
     next(err);
   }

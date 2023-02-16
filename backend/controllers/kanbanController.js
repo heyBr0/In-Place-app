@@ -1,6 +1,6 @@
 import KanbanCollection from "../models/kanbanSchema.js";
 import UsersCollection from "../models/userSchema.js";
-import TasksCollection from '../models/tasksSchema.js'
+import TasksCollection from "../models/tasksSchema.js";
 
 export const getAllTasks = async (req, res, next) => {
   try {
@@ -20,7 +20,10 @@ export const createNewTask = async (req, res, next) => {
       req.user._id,
       { $push: { kanban: task } },
       { new: true }
-    ).populate("kanban").populate("tasks").populate("notes");
+    )
+      .populate("kanban")
+      .populate("tasks")
+      .populate("notes");
 
     res.json({ success: true, data: updatedUser });
   } catch (err) {
@@ -38,7 +41,11 @@ export const getAllDoingTasks = async (req, res, next) => {
         filterAllDoing.push(task);
       }
     }
-    res.json({ success: true, data: filterAllDoing });
+    res
+      .json({ success: true, data: filterAllDoing })
+      .populate("kanban")
+      .populate("tasks")
+      .populate("notes");
   } catch (err) {
     next(err);
   }
@@ -54,7 +61,11 @@ export const getAllDoneTasks = async (req, res, next) => {
         filterAllDone.push(task);
       }
     }
-    res.json({ success: true, data: filterAllDone });
+    res
+      .json({ success: true, data: filterAllDone })
+      .populate("kanban")
+      .populate("tasks")
+      .populate("notes");
   } catch (err) {
     next(err);
   }
@@ -71,22 +82,26 @@ export const getSingleToDo = async (req, res, next) => {
 };
 
 export const updateTask = async (req, res, next) => {
-  console.log("message")
+  console.log("message");
   try {
     const id = req.params.id;
     const updatedTask = await KanbanCollection.findByIdAndUpdate(id, req.body, {
       new: true,
     });
 
-    console.log(updatedTask)
-    const foundTask = await TasksCollection.findById(updatedTask.toDoTaskId)
-   console.log(foundTask)
-        if(foundTask) {
-            foundTask.task = updatedTask.task
-            await foundTask.save()
-        }
+    console.log(updatedTask);
+    const foundTask = await TasksCollection.findById(updatedTask.toDoTaskId);
+    console.log(foundTask);
+    if (foundTask) {
+      foundTask.task = updatedTask.task;
+      await foundTask.save();
+    }
 
-    res.json({ success: true, data: updatedTask });
+    res
+      .json({ success: true, data: updatedTask })
+      .populate("kanban")
+      .populate("tasks")
+      .populate("notes");
   } catch (err) {
     next(err);
   }
@@ -108,10 +123,14 @@ export const deleteTask = async (req, res, next) => {
         req.user._id,
         { $pull: { existingTask: id } },
         { new: true }
-      ).populate("kanban").populate("tasks").populate("notes");
+      )
+        .populate("kanban")
+        .populate("tasks")
+        .populate("notes");
 
-      const foundTask = await TasksCollection.findOneAndDelete({_id: existingTask.toDoTaskId})
-
+      const foundTask = await TasksCollection.findOneAndDelete({
+        _id: existingTask.toDoTaskId,
+      });
 
       // console.log(updatedUser); // clg to check
 
