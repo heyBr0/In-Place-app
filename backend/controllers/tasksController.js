@@ -50,12 +50,12 @@ export const createNewTask = async (req,res,next) => {
 
       //  const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$push: {tasks: task, kanban: req.body.kanban && kanban._id}}, {new: true}).populate("tasks")
       console.log(task)
-      const updatedUser= await UsersCollection.findById(req.user._id).populate("kanban").populate("tasks").populate("notes")
+      const updatedUser= await UsersCollection.findById(req.user._id).populate("kanbans").populate("tasks").populate("notes")
       updatedUser.tasks.push(task)
       updatedUser.kanban.push(kanban._id)
       await updatedUser.save();
 
-      res.json({success: true, data: updatedUser}).populate("kanban").populate("tasks").populate("notes");
+      res.json({success: true, data: updatedUser}).populate("kanbans").populate("tasks").populate("notes");
 
     }
     catch(err){
@@ -85,7 +85,7 @@ export const completeTask = async (req,res,next) => {
 
         task.completed = !task.completed;
         task.save();
-        res.json({success: true, data:task}).populate("kanban").populate("tasks").populate("notes");
+        res.json({success: true, data:task}).populate("kanbans").populate("tasks").populate("notes");
     }
     catch (err) {
         next(err)
@@ -104,7 +104,7 @@ export const updateTask = async (req,res,next) => {
             foundKanban.task = updatedTask.task
             await foundKanban.save()
         }
-        res.json({success: true, task: updatedTask}).populate("kanban").populate("tasks").populate("notes");
+        res.json({success: true, task: updatedTask}).populate("kanbans").populate("tasks").populate("notes");
     }
     catch(err){
         next(err)
@@ -123,11 +123,11 @@ export const deleteTask = async (req,res,next) => {
 
             const deletedTask = await TasksCollection.deleteOne({_id: task._id})
 
-            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanban").populate("tasks").populate("notes") 
+            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanbans").populate("tasks").populate("notes") 
 
             const foundKanban = await KanbanCollection.findOneAndDelete({toDoTaskId: id})
 
-            res.json({success:true, data:updatedUser}).populate("kanban").populate("tasks").populate("notes");
+            res.json({success:true, data:updatedUser}).populate("kanbans").populate("tasks").populate("notes");
         }else{
             throw new Error("task id doesn't exist")
         }
@@ -148,9 +148,9 @@ export const deleteCompletedTask = async (req,res,next) => {
 
             const deletedTask = await TasksCollection.deleteOne({_id: task._id})
 
-            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanban").populate("tasks").populate("notes")
+            const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$pull: {tasks: id}}, {new:true}).populate("kanbans").populate("tasks").populate("notes")
 
-            res.json({success:true, data:updatedUser}).populate("kanban").populate("tasks").populate("notes");
+            res.json({success:true, data:updatedUser}).populate("kanbans").populate("tasks").populate("notes");
         }else{
             throw new Error("task id doesn't exist")
         }

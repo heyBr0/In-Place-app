@@ -238,7 +238,7 @@ export const updatePersonalNote = async (req, res, next) => {
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
     .populate("notes")
-    .populate("kanban")
+    .populate("kanbans")
     .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
@@ -256,7 +256,7 @@ export const updateBusinessNote = async (req, res, next) => {
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
     .populate("notes")
-    .populate("kanban")
+    .populate("kanbans")
     .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
@@ -274,7 +274,7 @@ export const updateInspirationsNote = async (req, res, next) => {
     );
     const updatedUser = await UsersCollection.findById(req.user._id)
     .populate("notes")
-    .populate("kanban")
+    .populate("kanbans")
     .populate("tasks");
     res.json({ success: true, data: updatedUser });
   } catch (err) {
@@ -297,7 +297,7 @@ export const deleteHealthNote = async (req, res, next) => {
         { new: true }
       )
         .populate("notes")
-        .populate("kanban")
+        .populate("kanbans")
         .populate("tasks");
       res.json({ success: true, data: updatedUser });
     } else {
@@ -323,7 +323,7 @@ export const deletePersonalNote = async (req, res, next) => {
         { new: true }
       )
         .populate("notes")
-        .populate("kanban")
+        .populate("kanbans")
         .populate("tasks");
       res.json({ success: true, data: updatedUser });
     } else {
@@ -349,7 +349,7 @@ export const deleteBusinessNote = async (req, res, next) => {
         { new: true }
       )
         .populate("notes")
-        .populate("kanban")
+        .populate("kanbans")
         .populate("tasks");
       res.json({ success: true, data: updatedUser });
     } else {
@@ -375,7 +375,7 @@ export const deleteInspirationsNote = async (req, res, next) => {
         { new: true }
       )
         .populate("notes")
-        .populate("kanban")
+        .populate("kanbans")
         .populate("tasks");
       res.json({ success: true, data: updatedUser });
     } else {

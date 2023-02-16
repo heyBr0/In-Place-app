@@ -21,7 +21,7 @@ export const createNewTask = async (req, res, next) => {
       { $push: { kanban: task } },
       { new: true }
     )
-      .populate("kanban")
+      .populate("kanbans")
       .populate("tasks")
       .populate("notes");
 
@@ -43,7 +43,7 @@ export const getAllDoingTasks = async (req, res, next) => {
     }
     res
       .json({ success: true, data: filterAllDoing })
-      .populate("kanban")
+      .populate("kanbans")
       .populate("tasks")
       .populate("notes");
   } catch (err) {
@@ -63,7 +63,7 @@ export const getAllDoneTasks = async (req, res, next) => {
     }
     res
       .json({ success: true, data: filterAllDone })
-      .populate("kanban")
+      .populate("kanbans")
       .populate("tasks")
       .populate("notes");
   } catch (err) {
@@ -87,19 +87,21 @@ export const updateTask = async (req, res, next) => {
     const id = req.params.id;
     const updatedTask = await KanbanCollection.findByIdAndUpdate(id, req.body, {
       new: true,
-    });
+    }).populate("kanbans")
+    .populate("tasks")
+    .populate("notes");
 
-    console.log(updatedTask);
+  /*   console.log(updatedTask); */
     const foundTask = await TasksCollection.findById(updatedTask.toDoTaskId);
-    console.log(foundTask);
+/*     console.log(foundTask); */
     if (foundTask) {
       foundTask.task = updatedTask.task;
       await foundTask.save();
-    }
+    };
 
     res
-      .json({ success: true, data: updatedTask })
-      .populate("kanban")
+      .json({ success: true, data: foundTask })
+      .populate("kanbans")
       .populate("tasks")
       .populate("notes");
   } catch (err) {
@@ -124,7 +126,7 @@ export const deleteTask = async (req, res, next) => {
         { $pull: { existingTask: id } },
         { new: true }
       )
-        .populate("kanban")
+        .populate("kanbans")
         .populate("tasks")
         .populate("notes");
 

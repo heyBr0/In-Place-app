@@ -25,7 +25,7 @@ export const createNewUser = async (req, res, next) => {
 export const getSingleUser = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const singleUser = await UsersCollection.findById(id).populate("kanban").populate("tasks").populate("notes");
+    const singleUser = await UsersCollection.findById(id).populate("kanbans").populate("tasks").populate("notes");
     res.json({ success: true, user: singleUser });
   } catch (err) {
     const error = new Error("Id doesn't exist");
@@ -50,7 +50,7 @@ export const updateUser = async (req, res, next) => {
       }
     }
 
-    const updatedUser = await UsersCollection.findByIdAndUpdate(req.params.id, body,{ new: true }).populate("tasks").populate("kanban").populate("notes");
+    const updatedUser = await UsersCollection.findByIdAndUpdate(req.params.id, body,{ new: true }).populate("tasks").populate("kanbans").populate("notes");
 
  //   const updatedUser = await UsersCollection.findByIdAndUpdate(
  //     req.params.id,
@@ -73,7 +73,7 @@ export const deleteUser = async (req, res, next) => {
       const deleteStatus = await UsersCollection.deleteOne({
         _id: existingUser._id,
       });
-      res.json({ success: true, status: deleteStatus }).populate("kanban").populate("tasks").populate("notes");
+      res.json({ success: true, status: deleteStatus }).populate("kanbans").populate("tasks").populate("notes");
     } else {
       throw new Error("User id does not exist");
     }
@@ -100,7 +100,7 @@ export const loginUser = async (req, res, next) => {
           user._id,
           { token: token },
           { new: true }
-        ).populate("tasks").populate("kanban").populate("notes")
+        ).populate("tasks").populate("kanbans").populate("notes")
 
         res.header("token", token);
 
@@ -122,12 +122,12 @@ export const checkUserToken = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
 
 
-      const user = await UsersCollection.findById(payload._id).populate("tasks").populate("kanban").populate("notes")
+      const user = await UsersCollection.findById(payload._id).populate("tasks").populate("kanbans").populate("notes")
 
   //  const user = await UsersCollection.findById(payload._id).populate("kanban");
 
 
-    res.json({ success: true, data: user }).populate("kanban").populate("tasks").populate("notes");
+    res.json({ success: true, data: user }).populate("kanbans").populate("tasks").populate("notes");
   } catch (err) {
     next(err);
   }
