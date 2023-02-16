@@ -49,7 +49,7 @@ export const createNewTask = async (req,res,next) => {
         }
 
       //  const updatedUser = await UsersCollection.findByIdAndUpdate(req.user._id, {$push: {tasks: task, kanban: req.body.kanban && kanban._id}}, {new: true}).populate("tasks")
-      console.log(task)
+      /* console.log(task) */
       const updatedUser= await UsersCollection.findById(req.user._id).populate("kanban").populate("tasks").populate("notes")
       updatedUser.tasks.push(task)
       updatedUser.kanban.push(kanban._id)
