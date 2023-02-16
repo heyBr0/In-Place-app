@@ -100,7 +100,7 @@ export const updateTask = async (req, res, next) => {
     };
 
     res
-      .json({ success: true, data: foundTask })
+      .json({ success: true, data: updatedTask })
       .populate("kanban")
       .populate("tasks")
       .populate("notes");
