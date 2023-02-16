@@ -1,1 +1,2 @@
-# In Place app
+## In Place app
+### Organization made easy
