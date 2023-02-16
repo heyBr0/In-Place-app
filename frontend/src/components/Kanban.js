@@ -94,19 +94,16 @@ export default function Kanban() {
   // ---- Filter through all the Kanban Tasks and sort them according to status (do, doing, done)
 
   useEffect(() => {
-    const filteredTasks = user.kanban.reduce(
-      (acc, task) => {
-        if (task.status === "do") {
-          acc[0].push(task);
-        } else if (task.status === "doing") {
-          acc[1].push(task);
-        } else if (task.status === "done") {
-          acc[2].push(task);
-        }
-        return acc;
-      },
-      [[], [], []]
-    );
+    const filteredTasks = user.kanban.reduce((acc, task) => {
+      if (task.status === "do") {
+        acc[0].push(task);
+      } else if (task.status === "doing") {
+        acc[1].push(task);
+      } else if (task.status === "done") {
+        acc[2].push(task);
+      }
+      return acc;
+    }, []);
 
     setDoArray(filteredTasks[0]);
     setDoingArray(filteredTasks[1]);
@@ -144,8 +141,7 @@ export default function Kanban() {
     let task = JSON.parse(e.dataTransfer.getData("task"));
     task.status = status;
 
-    console.log(task)
-
+    console.log(task);
 
     fetch(`/kanban/${task._id}`, {
       method: "PATCH",
